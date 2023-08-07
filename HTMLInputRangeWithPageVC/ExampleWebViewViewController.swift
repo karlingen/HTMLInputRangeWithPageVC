@@ -26,21 +26,21 @@ class ExampleWebViewViewController: UIViewController, WKUIDelegate {
                font-size: 12pt;
                -webkit-tap-highlight-color: rgba(0,0,0,0);
             }
-            input {
+        
+            video {
                 width: 100%;
             }
+           
             </style>
         </head>
         <body>
             <h1>Testing HTML input range slider</h1>
-            <p>
-                <input type="range" id="volume" name="volume" min="0" max="11" />
-            </p>
-        <script>
-            window.addEventListener('load', () => {
-              document.body.style.backgroundColor = Math.floor(Math.random()*16777215).toString(16);
-            });
-        </script>
+        <p>HTML5 video</p>
+          <video playsinline src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" controls>
+            <p>Your browser does not support HTML5 video.</p>
+          </video>
+                <p>Regular input slider</p>
+        <p><input type="range" id="volume" name="volume" min="0" max="11" /></p>
         </body>
         </html>
         """
@@ -51,8 +51,10 @@ class ExampleWebViewViewController: UIViewController, WKUIDelegate {
     
     override func loadView() {
         let webConfiguration = WKWebViewConfiguration()
+        webConfiguration.allowsInlineMediaPlayback = true
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.uiDelegate = self
+        webView.isInspectable = true
         view = webView
     }
 }
